@@ -1,11 +1,12 @@
 pipeline {
 	agent any
 	stages {
-	
 		stage ("Checkout") {
-			checkout([$class: 'GitSCM',	
+			steps {
+				checkout([$class: 'GitSCM',	
 					 branches: [[name: '*/master']],
 					 userRemoteConfigs: [[url: 'https://github.com/tekvidya/addressbook.git']]])
+			}
 		}
 		stage("Compile") {
 			steps {
