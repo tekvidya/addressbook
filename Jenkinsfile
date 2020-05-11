@@ -44,6 +44,10 @@ pipeline {
 			steps {
 				sh "mvn package"
 			}
+			post {
+				success {
+					deploy adapters: [tomcat9(credentialsId: 'd26cd943-c7cb-4389-9db2-cf92e54805d8', path: '', url: 'http://192.168.29.62:8080')], contextPath: null, onFailure: false, war: '**/target/addressbook.war'
+				}
 		}
 	}
 }
