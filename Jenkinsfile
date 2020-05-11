@@ -18,6 +18,11 @@ pipeline {
 			steps {
 				sh "mvn -P metrics pmd:pmd"
 			}
+			post {
+				always {
+					pmd canComputeNew: false, defaultEncoding: '', healthy: '', pattern: '**/target/pmd.xml', unHealthy: ''
+				}
+			}
 		}
 		
 		stage ("Unit Test") {
@@ -28,6 +33,11 @@ pipeline {
 		stage ("Metric Test") {
 			steps {
 				sh "mvn cobertura:cobertura -Dcobertura.report.format=xml"
+			}
+			post {
+				always {
+					cobertura autoUpdateHealth: false, autoUpdateStability: false, coberturaReportFile: '**/target/site/cobertura/coverage.xml', conditionalCoverageTargets: '70, 0, 0', failUnhealthy: false, failUnstable: false, lineCoverageTargets: '80, 0, 0', maxNumberOfBuilds: 0, methodCoverageTargets: '80, 0, 0', onlyStable: false, sourceEncoding: 'ASCII', zoomCoverageChart: false
+				}
 			}
 		}
 		stage ("Package") {
