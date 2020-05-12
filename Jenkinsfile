@@ -1,5 +1,5 @@
 pipeline {
-	agent any
+	agent 'lin-node1'
 	stages {
 		stage ("Checkout") {
 			steps {
