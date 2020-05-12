@@ -1,5 +1,5 @@
 pipeline {
-	agent 'lin-node1'
+	agent { label 'lin-node1'}
 	stages {
 		stage ("Checkout") {
 			steps {
